@@ -1,24 +1,23 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { FC, useEffect } from 'react';
+import './main.css';
+import { useNavigate } from 'react-router-dom';
+import RootRoute from './routes/RootRoute';
 
-function App() {
+const App: FC = () => {
+  const navigate = useNavigate()
+  const user = localStorage.getItem('userInfo')
+  const jwt = localStorage.getItem("jwt")
+  // localStorage.removeItem('jwt')
+  // localStorage.removeItem('userInfo')
+  // console.log(user, jwt);
+  useEffect(() => {
+    if (!user) {
+      navigate('/register')
+    }
+  }, [])
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <RootRoute user={user} />
     </div>
   );
 }
